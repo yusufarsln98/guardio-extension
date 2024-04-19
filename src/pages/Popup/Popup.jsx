@@ -1,26 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../assets/img/logo.svg';
-import Greetings from '../../containers/Greetings/Greetings';
 import './Popup.css';
+import { Flex, Typography } from 'antd';
+import PageSafety from '../../containers/PageSafety/PageSafety';
 
 const Popup = () => {
+  const [url, setUrl] = useState('');
+
+  useEffect(() => {
+    const fetchTabUrl = async () => {
+      try {
+        const [tab] = await chrome.tabs.query({
+          active: true,
+          lastFocusedWindow: true,
+        });
+        const baseUrl = new URL(tab.url).origin;
+        setUrl(baseUrl);
+      } catch (error) {
+        console.error('Error fetching tab URL:', error);
+      }
+    };
+    fetchTabUrl();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/pages/Popup/Popup.jsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="App">
+        <header>
+          <Flex align="center">
+            <img src={logo} className="App-logo" alt="logo" />
+            <Typography.Title level={3}>Guardio</Typography.Title>
+          </Flex>
+        </header>
+        <PageSafety url={url} />
+      </div>
+    </>
   );
 };
 

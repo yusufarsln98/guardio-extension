@@ -18,7 +18,6 @@ const Newtab = () => {
       setLoading(true);
       // response: { prediction: 'It is 81.23 % safe to go ' }
       const res = await axios.post('https://web-guard.onrender.com', { url });
-
       // extract percentage from the prediction
       const percentage = parseFloat(res.data.prediction.match(/\d+\.\d+/g)[0]);
       setPercentage(percentage);
@@ -41,7 +40,7 @@ const Newtab = () => {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Typography.Title level={3}>Browse Safe.</Typography.Title>
+        <Typography.Title level={3}>Guardio</Typography.Title>
       </header>
       <Flex
         vertical
