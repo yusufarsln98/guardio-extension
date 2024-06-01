@@ -17,7 +17,7 @@ const Newtab = () => {
     try {
       setLoading(true);
       // response: { prediction: 'It is 81.23 % safe to go ' }
-      const res = await axios.post('https://web-guard.onrender.com', { url });
+      const res = await axios.post('http://localhost:5000', { url });
       // extract percentage from the prediction
       const percentage = parseFloat(res.data.prediction.match(/\d+\.\d+/g)[0]);
       setPercentage(percentage);

@@ -9,7 +9,7 @@ const PageSafety = ({ url }) => {
       // get if page sage or not
       const getPrediction = async () => {
         try {
-          const res = await axios.post('https://web-guard.onrender.com', {
+          const res = await axios.post('http://localhost:5000', {
             url,
           });
           const percentage = parseFloat(
